@@ -44,6 +44,19 @@ class Main extends Component {
       })
   }
 
+  formatTimeElement = (timeUnit, element) => {
+    switch(true) {
+      case timeUnit > 1:
+        return `${timeUnit} ${element}s`;
+      case timeUnit === 1:
+        return `${timeUnit} ${element}`;
+      case timeUnit === 0:
+        return ``;
+      default:
+        return ``;
+    };
+  };
+
   renderBox = (meta, key) => {
     if(!meta) {
       return (
@@ -53,6 +66,11 @@ class Main extends Component {
       )
     }
 
+    const minutes = Math.floor(meta.duration / 60);
+    const formattedMinutes = this.formatTimeElement(minutes, 'Minute');
+    const seconds = meta.duration % 60;
+    const formattedSeconds = this.formatTimeElement(seconds, 'Second');
+
     return (
       <div key={key} style={pageStyle.cardContainer}>
         <Card style={pageStyle.card }>
@@ -61,7 +79,7 @@ class Main extends Component {
           <h3>Rating</h3>
           <p><span style={pageStyle.stars}>{'★'.repeat(meta.rating)}{'☆'.repeat(5 - meta.rating)}</span></p>
           <h3>Duration</h3>
-          <p>{Math.floor(meta.duration / 60)} Minutes</p>
+          <p>{formattedMinutes} {formattedSeconds}</p>
           <h3>Audio File</h3>
           <audio controls>
             <source src={meta.url} type="audio/mp3" />
