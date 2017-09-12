@@ -1,13 +1,12 @@
 # i2x-code-challenge
 code challenge project
 
-## Running the project locally
-
+## Running the Project Locally
 `yarn install`
 
 `yarn dev`
 
-## deploying the project
+## Deploying the Project
 
 `yarn build`
 
@@ -20,3 +19,6 @@ code challenge project
 `git push heroku master`
 
 `heroku open`
+
+## Live Demo
+[https://i2x-challenge-cody.herokuapp.com/login]
