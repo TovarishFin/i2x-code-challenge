@@ -8,8 +8,8 @@ code challenge project
 `yarn dev`
 
 #deploying the project
-`
-yarn build`
+
+`yarn build`
 
 `heroku create`
 
