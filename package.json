@@ -15,8 +15,8 @@
   "scripts": {
     "dev": "npm run build webpack-dev-server --progress --colors --hot --config ./webpack.config.js",
     "start": "NODE_ENV=production node server.js",
-    "postinstall": "npm install | npm run build",
-    "build": "node node_modules/webpack/bin/webpack.js --config webpack.config.prod.js -p --progress --colors"
+
+    "build": "webpack --config webpack.config.prod.js -p  --colors"
   },
   "dependencies": {
     "axios": "^0.16.2",
