@@ -1,6 +1,25 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import Card from 'material-ui/Card';
+
+const pageStyle = {
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  card: {
+    padding: '20px',
+    alignSelf: 'center',
+    justifyContent: 'center'
+  },
+  cardContainer: {
+    padding: '20px'
+  },
+  stars: {
+    color: '#FFEB3B'
+  }
+};
 
 class Main extends Component {
 
@@ -16,7 +35,6 @@ class Main extends Component {
         }
       })
       .then(res => {
-        console.log(res)
         this.setState({
           metaInfo: res.data.results
         });
@@ -29,31 +47,37 @@ class Main extends Component {
   renderBox = (meta, key) => {
     if(!meta) {
       return (
-        <div key={key}>
+        <Card>
           <p>Loading...</p>
-        </div>
+        </Card>
       )
     }
 
     return (
-      <div className="metaBox" key={key}>
-        <p>Final Script: {meta.final_script}</p>
-        <p>Rating: {'★'.repeat(meta.rating)}{'☆'.repeat(5 - meta.rating)}</p>
-        <p>Duration: {Math.floor(meta.duration / 60)} Minutes</p>
-        <audio controls>
-          <source src={meta.url} type="audio/mp3" />
-          <source src={meta.url} type="audio/ogg" />
-          Please upgrade your web browser.
-        </audio>
-        {meta.url}
-        <p>Date Created: {new Date(meta.created).toLocaleDateString()}</p>
+      <div key={key} style={pageStyle.cardContainer}>
+        <Card style={pageStyle.card }>
+          <h3>Final Script</h3>
+          <p>{meta.final_script}</p>
+          <h3>Rating</h3>
+          <p><span style={pageStyle.stars}>{'★'.repeat(meta.rating)}{'☆'.repeat(5 - meta.rating)}</span></p>
+          <h3>Duration</h3>
+          <p>{Math.floor(meta.duration / 60)} Minutes</p>
+          <h3>Audio File</h3>
+          <audio controls>
+            <source src={meta.url} type="audio/mp3" />
+            <source src={meta.url} type="audio/ogg" />
+            Please upgrade your web browser.
+          </audio>
+          <h3>Date Created</h3>
+          <p>{new Date(meta.created).toLocaleDateString()}</p>
+        </Card>
       </div>
-    )
-  }
+    );
+  };
 
   render() {
     return (
-      <div>
+      <div style={pageStyle.container}>
         {this.state.metaInfo.map(this.renderBox)}
       </div>
     )

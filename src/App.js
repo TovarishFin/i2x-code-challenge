@@ -7,10 +7,17 @@ import {
   Switch
 } from 'react-router-dom';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 import Login from './components/login/Login';
 import Main from './components/main/Main';
 import NoMatch from './components/noMatch/NoMatch';
 import Header from './components/header/Header';
+
+import './app.css';
+
+injectTapEventPlugin();
 
 class App extends Component {
 
@@ -31,6 +38,7 @@ class App extends Component {
         this.setState({
           token: token
         });
+
       })
       .catch(err => {
         this.setState({
@@ -41,7 +49,11 @@ class App extends Component {
 
   handleLogout = () => {
     localStorage.removeItem('i2x-jwt');
-  }
+    this.setState({
+      token: null
+    });
+
+  };
 
   componentWillMount() {
     const localStorageJWT = localStorage.getItem('i2x-jwt');
@@ -50,7 +62,7 @@ class App extends Component {
         token: localStorageJWT
       });
     }
-  }
+  };
 
   render() {
 
@@ -70,26 +82,29 @@ class App extends Component {
     );
 
     return (
-      <Router>
-        <div>
-          <Header
-            token={this.state.token}
-            handleLogout={this.handleLogout}
-          />
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/"
-              component={(props) => (<Main {...props} token={this.state.token} />)}
+      <MuiThemeProvider>
+        <Router>
+          <div className="page">
+            <Header
+              token={this.state.token}
+              handleLogout={this.handleLogout}
             />
-            <Route
-              path="/login"
-              component={(props) => (<Login {...props} handleLoginSubmit={this.handleLoginSubmit} />)}
-            />
-          <Route component={() => (<NoMatch />)} />
-          </Switch>
-        </div>
-      </Router>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/"
+                component={(props) => (<Main {...props} token={this.state.token} />)}
+              />
+              <Redirect from="/logout" to="/login" />
+              <Route
+                path="/login"
+                component={(props) => (<Login {...props} token={this.state.token} handleLoginSubmit={this.handleLoginSubmit} />)}
+              />
+            <Route component={() => (<NoMatch />)} />
+            </Switch>
+          </div>
+        </Router>
+      </MuiThemeProvider>
     );
   }
 }
