@@ -13,10 +13,13 @@
     ]
   },
   "scripts": {
-    "start": "webpack-dev-server --progress --colors --hot --config ./webpack.config.js"
+    "start": "webpack-dev-server --progress --colors --hot --config ./webpack.config.js",
+    "prod": "NODE_ENV=production node server.js",
+    "build": "webpack --config webpack.config.prod.js -p --progress --colors"
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "express": "^4.15.4",
     "material-ui": "^0.19.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
