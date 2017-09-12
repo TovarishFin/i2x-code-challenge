@@ -1,33 +1,16 @@
-const path = require('path')
-const webpack = require('webpack')
+const merge = require('webpack-merge');
+const common = require('./webpack.config.common.js');
+const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-module.exports = {
-  devtool: 'inline-source-map',
-  entry: [
-    './src/index.js'
-  ],
-  output: {
-    path: path.join(__dirname + '/dist/'),
-    filename: 'bundle.js',
-    publicPath: '/'
-  },
+module.exports = merge(common, {
+
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
-    })
-  ],
-  module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'react-hot-loader!babel-loader'
-      },
-      {
-        test: /\.css$/, loader: "style-loader!css-loader"
-      }
-    ]
-  },
-}
+    }),
+    new UglifyJSPlugin()
+  ]
+});
