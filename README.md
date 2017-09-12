@@ -21,4 +21,4 @@ code challenge project
 `heroku open`
 
 ## Live Demo
-[https://i2x-challenge-cody.herokuapp.com/login]
+[https://i2x-challenge-cody.herokuapp.com]
