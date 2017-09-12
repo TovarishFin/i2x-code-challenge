@@ -13,8 +13,8 @@
     ]
   },
   "scripts": {
-    "start": "webpack-dev-server --progress --colors --hot --config ./webpack.config.js",
-    "prod": "NODE_ENV=production node server.js",
+    "dev": "webpack-dev-server --progress --colors --hot --config ./webpack.config.js",
+    "start": "NODE_ENV=production node server.js",
     "build": "webpack --config webpack.config.prod.js -p --progress --colors"
   },
   "dependencies": {
