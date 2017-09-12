@@ -14,7 +14,8 @@
   },
   "scripts": {
     "dev": "npm run build webpack-dev-server --progress --colors --hot --config ./webpack.config.js",
-    "start": "webpack --config webpack.config.prod.js -p --progress --colors | NODE_ENV=production node server.js",
+    "start": "NODE_ENV=production node server.js",
+    "postinstall": "webpack --config ./webpackconfig.prod.js -p --progress --colors",
     "build": "webpack --config webpack.config.prod.js -p --progress --colors"
   },
   "dependencies": {
