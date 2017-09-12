@@ -1,13 +1,13 @@
 # i2x-code-challenge
 code challenge project
 
-#Running the project locally
+## Running the project locally
 
 `yarn install`
 
 `yarn dev`
 
-#deploying the project
+## deploying the project
 
 `yarn build`
 
